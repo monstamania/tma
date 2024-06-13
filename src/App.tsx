@@ -1,41 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import twaLogo from './assets/tapps.png'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
+import background from './assets/background.png';
+import coin from './assets/coin.png';
+import monstaMania from './assets/monsta_mania.png';
+import Shop from './Shop';
 
-import WebApp from '@twa-dev/sdk'
+const App: React.FC = () => {
+  const [score, setScore] = useState(0);
+  const [multiplier, setMultiplier] = useState(1);
 
-function App() {
-  const [count, setCount] = useState(0)
+  const handleClick = () => {
+    setScore(score + multiplier);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://ton.org/dev" target="_blank">
-          <img src={twaLogo} className="logo" alt="TWA logo" />
-        </a>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container" style={{ backgroundImage: `url(${background})` }}>
+      <div className="header">
+        <img src={monstaMania} alt="Monsta Mania" />
       </div>
-      <h1>TWA + Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      <div className="powered-by">Powered by TON on Telegram</div>
+      <div className="score">Score: {score}</div>
+      <div className="coin-container">
+        <div className="pulse"></div>
+        <img src={coin} alt="Coin" className="coin" onClick={handleClick} />
       </div>
-      {/*  */}
-      <div className="card">
-        <button onClick={() => WebApp.showAlert(`Hello World! Current count is ${count}`)}>
-            Show Alert
-        </button>
-      </div>
-    </>
-  )
-}
+      <Shop score={score} setScore={setScore} multiplier={multiplier} setMultiplier={setMultiplier} />
+    </div>
+  );
+};
 
-export default App
+export default App;
